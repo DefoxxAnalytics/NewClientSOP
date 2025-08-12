@@ -75,7 +75,7 @@ The Versatex SOP Website is a comprehensive digital platform that transforms tra
 ## 🚀 Quick Start
 
 ### **Access the Live Website**
-Visit: `https://DefoxxAnalytics.io/NewClientSOP`
+Visit: [https://DefoxxAnalytics.io/NewClientSOP/]
 
 ### **Navigate the Documentation**
 1. **Use the sidebar** to jump between procedure sections
@@ -836,4 +836,5 @@ If you have questions not covered in this README:
 **Last Updated:** July 15, 2025  
 **Next Review:** Dec 15, 2025  
 **Document Owner:** Defoxx Analytics Team Lead  
+
 **Approved By:** Department Manager
