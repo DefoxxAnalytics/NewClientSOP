@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versatex Data Analysis SOP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Enterprise Navy Blue & White Color Palette */
+            --primary-color: #003366;
+            --primary-light: #004080;
+            --primary-dark: #002244;
+            --secondary-color: #F8FAFC;
+            --accent-color: #0066CC;
+            --accent-light: #3385D6;
+            --success-color: #059669;
+            --warning-color: #F59E0B;
+            --danger-color: #DC2626;
+            --info-color: #0EA5E9;
+
+            /* Enterprise Grays */
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+
+            /* Text Colors */
+            --text-primary: #111827;
+            --text-secondary: #4B5563;
+            --text-muted: #6B7280;
+            --text-white: #FFFFFF;
+            --text-navy: #003366;
+
+            /* Background Colors */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --bg-navy: #003366;
+            --bg-navy-light: #F8FAFC;
+            --bg-card: #FFFFFF;
+
+            /* Professional Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+
+            /* Clean Borders */
+            --border-width: 1px;
+            --border-color: #E5E7EB;
+            --border-radius-sm: 4px;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+
+            /* Professional Animation Easing */
+            --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+            --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+            --ease-enterprise: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            font-feature-settings: 'kern' 1, 'liga' 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 32px;
+            min-height: 100vh;
+            animation: fadeInUp 0.8s var(--ease-out-cubic);
+        }
+
+        /* Professional Sidebar */
+        .sidebar {
+            background: var(--bg-navy);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 32px 24px;
+            box-shadow: var(--shadow-lg);
+            height: fit-content;
+            position: sticky;
+            top: 24px;
+            animation: slideInRight 0.8s var(--ease-out-cubic) 0.2s both;
+            transition: all 0.3s var(--ease-enterprise);
+        }
+
+        .sidebar:hover {
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Logo Section */
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .logo-image {
+            width: 180px;
+            height: auto;
+            margin-bottom: 16px;
+            transition: all 0.3s var(--ease-enterprise);
+            filter: brightness(0) invert(1);
+        }
+
+        .logo-image:hover {
+            transform: scale(1.03);
+        }
+
+        .logo h1 {
+            color: var(--text-white);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.025em;
+        }
+
+        .logo p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.025em;
+        }
+
+        /* Professional Search Box */
+        .search-box {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 18px 14px 48px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-white);
+            transition: all 0.3s var(--ease-enterprise);
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            transition: all 0.3s var(--ease-enterprise);
+        }
+
+        .search-box:focus-within i {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Professional Navigation */
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all 0.3s var(--ease-enterprise);
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-white);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-white);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            width: 18px;
+            font-size: 1rem;
+            transition: all 0.3s var(--ease-enterprise);
+        }
+
+        .nav-link span {
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--bg-card);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow-lg);
+            min-height: calc(100vh - 48px);
+            animation: fadeInUp 0.8s var(--ease-out-cubic) 0.4s both;
+            position: relative;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: scaleIn 0.5s var(--ease-enterprise);
+        }
+
+        /* Page Headers */
+        .page-header {
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .page-title {
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+
+        /* Section Headers */
+        .section-header {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 40px 0 20px 0;
+            padding-left: 20px;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+            letter-spacing: -0.025em;
+        }
+
+        .subsection-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 32px 0 16px 0;
+            letter-spacing: -0.025em;
+        }
+
+        /* Professional Timeline Items */
+        .timeline-item {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s var(--ease-enterprise);
+            position: relative;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-left-color: var(--accent-color);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.025em;
+        }
+
+        .timeline-duration {
+            background: var(--primary-color);
+            color: var(--text-white);
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+            white-space: nowrap;
+        }
+
+        /* Enhanced Checklist */
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+            transition: all 0.3s var(--ease-out-cubic);
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist li:hover {
+            background: var(--gray-50);
+            padding-left: 8px;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .checklist input[type="checkbox"] {
+            margin-right: 16px;
+            transform: scale(1.3);
+            accent-color: var(--success-color);
+            cursor: pointer;
+        }
+
+        /* Modern Cards */
+        .risk-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--warning-color);
+            transition: all 0.3s var(--ease-out-cubic);
+        }
+
+        .risk-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .risk-title {
+            font-weight: 600;
+            color: var(--warning-color);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .metric-card {
+            background: var(--primary-color);
+            color: var(--text-white);
+            padding: 32px 24px;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s var(--ease-enterprise);
+            position: relative;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            background: var(--primary-light);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.025em;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+
+        /* Dashboard Features */
+        .dashboard-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            padding: 32px 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s var(--ease-enterprise);
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            color: var(--primary-color);
+            transition: all 0.3s var(--ease-enterprise);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.05);
+            color: var(--accent-color);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            letter-spacing: -0.025em;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Search Results */
+        .search-results {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-top: 8px;
+            max-height: 320px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            z-index: 1000;
+        }
+
+        .search-result-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out-cubic);
+        }
+
+        .search-result-item:hover {
+            background: var(--gray-50);
+            transform: translateX(4px);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Version Info */
+        .version-info {
+            background: var(--bg-navy-light);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-color);
+        }
+
+        .version-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 12px;
+            letter-spacing: 0.025em;
+        }
+
+        .status-green {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-yellow {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Appendix Grid */
+        .appendix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .appendix-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s var(--ease-enterprise);
+            position: relative;
+        }
+
+        .appendix-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Download Button */
+        .download-btn {
+            background: var(--accent-color);
+            color: var(--text-white);
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--ease-enterprise);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            letter-spacing: 0.025em;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            background: var(--accent-light);
+        }
+
+        .download-btn i {
+            transition: transform 0.3s var(--ease-enterprise);
+        }
+
+        .download-btn:hover i {
+            transform: translateY(-1px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 280px 1fr;
+                gap: 24px;
+                padding: 20px;
+            }
+
+            .main-content {
+                padding: 32px 24px;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 16px;
+            }
+
+            .sidebar {
+                position: static;
+                order: 2;
+                padding: 24px 20px;
+            }
+
+            .main-content {
+                padding: 24px 20px;
+                order: 1;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .dashboard-features {
+                grid-template-columns: 1fr;
+            }
+
+            .appendix-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-image {
+                width: 160px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+                gap: 16px;
+            }
+
+            .sidebar {
+                padding: 20px 16px;
+            }
+
+            .main-content {
+                padding: 20px 16px;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .section-header {
+                font-size: 1.5rem;
+                padding-left: 16px;
+            }
+
+            .timeline-item {
+                padding: 24px 20px;
+            }
+
+            .feature-card {
+                padding: 24px 20px;
+            }
+
+            .logo-image {
+                width: 140px;
+            }
+        }
+
+        /* Smooth loading animations */
+        .content-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s var(--ease-out-cubic);
+        }
+
+        .content-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-500);
+        }
+
+        /* Focus styles for accessibility */
+        .nav-link:focus,
+        .search-box input:focus,
+        .download-btn:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Loading state for dynamic content */
+        .loading {
+            background: var(--gray-200);
+            opacity: 0.7;
+            animation: shimmer 2s infinite;
+        }
+
+        /* Print styles */
+        @media print {
+            .sidebar {
+                display: none;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                box-shadow: none;
+                border: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Enhanced Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="vtx_logo_black.png" alt="Versatex Logo" class="logo-image">
+                <!-- <h1>Versatex Analytics</h1> -->
+                <p>New Client Data Analysis SOP</p>
+            </div>
+
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search procedures...">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-section="overview">
+                        <i class="fas fa-home"></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="prerequisites">
+                        <i class="fas fa-cog"></i>
+                        <span>Prerequisites</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="data-collection">
+                        <i class="fas fa-database"></i>
+                        <span>Data Collection</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="quality-assessment">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Quality Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="data-cleansing">
+                        <i class="fas fa-broom"></i>
+                        <span>Data Cleansing</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="categorization">
+                        <i class="fas fa-tags"></i>
+                        <span>Categorization</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="dashboard">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard Development</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="delivery">
+                        <i class="fas fa-rocket"></i>
+                        <span>Delivery</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="quality">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Quality Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="risks">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Risk Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="appendices">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Appendices</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Enhanced Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <div class="page-header">
+                    <h1 class="page-title">Data Analysis Procedure</h1>
+                    <p class="page-subtitle">Vendor Spend Analysis & Dashboard Creation</p>
+                </div>
+
+                <div class="version-info">
+                    <h3>Version 2.0 - Enhanced Procedure</h3>
+                    <p><strong>Last Updated:</strong> <span id="currentDate"></span></p>
+                    <p><strong>Document Owner:</strong> Analytics Team Lead</p>
+                    <p><strong>Next Review:</strong> Quarterly</p>
+                </div>
+
+                <h2 class="section-header">Executive Summary</h2>
+                <p>This procedure establishes a standardized methodology for analyzing client vendor spend data to
+                    create actionable business intelligence dashboards. The process transforms raw procurement data into
+                    strategic insights that drive business development opportunities and client value creation.</p>
+
+                <h3 class="subsection-header">Key Deliverables</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">5</div>
+                        <div class="metric-label">Category Levels</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">90%+</div>
+                        <div class="metric-label">Spend Categorized</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">12</div>
+                        <div class="metric-label">Quality Gates</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">5</div>
+                        <div class="metric-label">Dashboard Tabs</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Data Quality Assessment</h3>
+                        <p>Comprehensive validation and cleansing procedures ensure data integrity and accuracy.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏷️</div>
+                        <h3 class="feature-title">Advanced Categorization</h3>
+                        <p>5-level taxonomy classification with industry-specific standards and vendor normalization.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3 class="feature-title">Interactive Dashboard</h3>
+                        <p>Power BI dashboard with geographic analysis, spend bands, and supplier intelligence.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">Strategic Recommendations</h3>
+                        <p>Actionable insights and business development opportunities identification.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prerequisites Section -->
+            <section id="prerequisites" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Prerequisites & Setup</h1>
+                    <p class="page-subtitle">Required resources and project initialization</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Required Personnel</h3>
+                        <span class="timeline-duration">1-2 Days</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Analytics Team Lead (Project Owner)</li>
+                        <li><input type="checkbox"> Data Analyst (Primary)</li>
+                        <li><input type="checkbox"> Business Development Representative</li>
+                        <li><input type="checkbox"> Quality Assurance Reviewer</li>
+                        <li><input type="checkbox"> Senior Analyst (Approval Authority)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Software & Tools</h3>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Microsoft Excel (latest version)</li>
+                        <li><input type="checkbox"> Power BI Pro license</li>
+                        <li><input type="checkbox"> Access to Versatex SharePoint</li>
+                        <li><input type="checkbox"> VPN access for secure data handling</li>
+                        <li><input type="checkbox"> Fuzzy matching tools (PowerBI/R/Python)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Data Security Requirements</h3>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Encrypted folder structure created</li>
+                        <li><input type="checkbox"> Access permissions configured</li>
+                        <li><input type="checkbox"> Data retention policy reviewed</li>
+                        <li><input type="checkbox"> Compliance requirements verified</li>
+                        <li><input type="checkbox"> Backup procedures established</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Data Collection Section -->
+            <section id="data-collection" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Data Collection & Initial Assessment</h1>
+                    <p class="page-subtitle">Template distribution and data validation</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Data Request & Template Distribution</h3>
+                        <span class="timeline-duration">3-5 Days</span>
+                    </div>
+                    <p><strong>Process Overview:</strong></p>
+                    <ol>
+                        <li>Send Data Mapping Template via secure channel</li>
+                        <li>Schedule kickoff call to review requirements</li>
+                        <li>Provide data security instructions</li>
+                        <li>Establish primary client contact</li>
+                        <li>Set data delivery deadline (5-7 business days)</li>
+                    </ol>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Required Data Fields</h3>
+                    </div>
+                    <div class="checklist">
+                        <li><input type="checkbox"> Transaction ID/Invoice Number</li>
+                        <li><input type="checkbox"> Supplier Name and ID</li>
+                        <li><input type="checkbox"> Spend Amount (Currency specified)</li>
+                        <li><input type="checkbox"> Transaction Date</li>
+                        <li><input type="checkbox"> Category/GL Code</li>
+                        <li><input type="checkbox"> Description (Product/Service)</li>
+                        <li><input type="checkbox"> Purchase Order Number</li>
+                        <li><input type="checkbox"> Department/Cost Center</li>
+                        <li><input type="checkbox"> Location/Site</li>
+                        <li><input type="checkbox"> Payment Terms</li>
+                        <li><input type="checkbox"> Contract Reference (if applicable)</li>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Initial Validation Checklist</h3>
+                        <span class="timeline-duration">1-2 Days</span>
+                    </div>
+                    <div class="checklist">
+                        <li><input type="checkbox"> All requested files received</li>
+                        <li><input type="checkbox"> File formats are readable (.xlsx, .csv, .txt)</li>
+                        <li><input type="checkbox"> Data covers minimum 12 consecutive months</li>
+                        <li><input type="checkbox"> File sizes indicate complete data sets</li>
+                        <li><input type="checkbox"> No obvious corruption or truncation</li>
+                        <li><input type="checkbox"> Initial field mapping feasible</li>
+                        <li><input type="checkbox"> Senior Analyst consulted on spend calculation field</li>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quality Assessment Section -->
+            <section id="quality-assessment" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Data Quality Assessment</h1>
+                    <p class="page-subtitle">Completeness analysis and integrity validation</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Completeness Analysis</h3>
+                        <span class="timeline-duration">2-3 Days</span>
+                    </div>
+                    <p><strong>Key Metrics to Calculate:</strong></p>
+                    <ul>
+                        <li><strong>Total Spend:</strong> SUM(Spend Amount)</li>
+                        <li><strong>Transaction Count:</strong> COUNT(Transaction ID)</li>
+                        <li><strong>Unique Suppliers:</strong> COUNT DISTINCT(Supplier Name)</li>
+                        <li><strong>Data Completeness:</strong> (Non-null values / Total values) × 100</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Data Integrity Validation</h3>
+                    </div>
+                    <h4>Date Validation:</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Identify dates outside reasonable range (1980-current)</li>
+                        <li><input type="checkbox"> Flag future dates beyond current date</li>
+                        <li><input type="checkbox"> Check for consistent date formats</li>
+                    </ul>
+
+                    <h4>Spend Amount Validation:</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Remove non-numeric entries</li>
+                        <li><input type="checkbox"> Identify outliers using Z-score > 3</li>
+                        <li><input type="checkbox"> Flag negative values for review (retain in dataset)</li>
+                        <li><input type="checkbox"> Validate currency consistency</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Client Consultation Required</h3>
+                        <span class="timeline-duration">1-2 Days</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Clarify ambiguous field names</li>
+                        <li><input type="checkbox"> Address missing required fields</li>
+                        <li><input type="checkbox"> Validate identified outliers</li>
+                        <li><input type="checkbox"> Confirm calculation methodologies</li>
+                        <li><input type="checkbox"> Obtain Senior Analyst approval on spend field selection</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Data Cleansing Section -->
+            <section id="data-cleansing" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Data Cleansing & Standardization</h1>
+                    <p class="page-subtitle">File management and vendor normalization</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Pre-Cleansing File Management</h3>
+                        <span class="timeline-duration">1 Day</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Create cleansed, uncategorized data file</li>
+                        <li><input type="checkbox"> Copy dataset into working copy</li>
+                        <li><input type="checkbox"> Create index column in column "A" for sort-back capability</li>
+                        <li><input type="checkbox"> Record baseline metrics (rows, suppliers, spend)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Vendor Normalization Process</h3>
+                        <span class="timeline-duration">2-3 Days</span>
+                    </div>
+                    <h4>Automated Normalization:</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Apply fuzzy matching (PowerBI/R/Python)</li>
+                        <li><input type="checkbox"> Leverage Vendor ID when available</li>
+                        <li><input type="checkbox"> Generate automated match suggestions</li>
+                    </ul>
+
+                    <h4>Manual Verification:</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Review all automated changes</li>
+                        <li><input type="checkbox"> Sort alphabetically for efficient review</li>
+                        <li><input type="checkbox"> Preserve maximum detail (e.g., "Pepsi Co" over "Pepsi")</li>
+                        <li><input type="checkbox"> Research business suffix additions carefully</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Data Standardization</h3>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Remove duplicates (Excel: Data → Remove Duplicates)</li>
+                        <li><input type="checkbox"> Standardize currency formats</li>
+                        <li><input type="checkbox"> Apply consistent date formatting (YYYY-MM-DD)</li>
+                        <li><input type="checkbox"> Clean description fields</li>
+                        <li><input type="checkbox"> Retain negative spend (categorize as returns/credits)</li>
+                        <li><input type="checkbox"> Obtain client sign-off on final spend total</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Categorization Section -->
+            <section id="categorization" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Categorization Framework</h1>
+                    <p class="page-subtitle">5-level taxonomy classification and progress tracking</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Progress Tracking Setup</h3>
+                        <span class="timeline-duration">1 Day</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Create automated tracking system (Excel/PowerBI)</li>
+                        <li><input type="checkbox"> Add columns for Categories 1-5</li>
+                        <li><input type="checkbox"> Track % spend categorized</li>
+                        <li><input type="checkbox"> Track % transactions categorized</li>
+                        <li><input type="checkbox"> Track % suppliers categorized</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Initial Categorization (All 5 Levels)</h3>
+                        <span class="timeline-duration">7-10 Days</span>
+                    </div>
+                    <p><strong>Goal:</strong> Complete categorization to all 5 taxonomy levels</p>
+                    <p><strong>Exception:</strong> Direct spend (medical services/equipment for hospitals) - Level 1
+                        only</p>
+
+                    <h4>Taxonomy Selection:</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Open appropriate industry taxonomy from SharePoint</li>
+                        <li><input type="checkbox"> Identify useful categorization variables</li>
+                        <li><input type="checkbox"> Consider additional fields (unit price, quantity, etc.)</li>
+                    </ul>
+
+                    <h4>Categorization Process:</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Start with highest spend suppliers</li>
+                        <li><input type="checkbox"> Research suppliers via Google when needed</li>
+                        <li><input type="checkbox"> Use dashes in remaining levels for partial categorization</li>
+                        <li><input type="checkbox"> Leave blank if data insufficient</li>
+                        <li><input type="checkbox"> Retain negative spend in dataset</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Quality Validation & Visualization</h3>
+                        <span class="timeline-duration">2-3 Days</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Research suppliers with ≥0.1% of total spend</li>
+                        <li><input type="checkbox"> Create Level 1-2 category bar charts</li>
+                        <li><input type="checkbox"> Highlight in-scope categories (Facilities, Professional Services)
+                        </li>
+                        <li><input type="checkbox"> Apply Versatex branding to PowerPoint slides</li>
+                        <li><input type="checkbox"> Submit to leadership for review</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard Development</h1>
+                    <p class="page-subtitle">Power BI dashboard creation and optimization</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Dashboard Architecture</h3>
+                        <span class="timeline-duration">7-10 Days</span>
+                    </div>
+                    <div class="dashboard-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h4>Tab 1: Executive Summary</h4>
+                            <ul>
+                                <li>Key spend metrics and KPIs</li>
+                                <li>Top 10 suppliers by spend</li>
+                                <li>Spend trend analysis</li>
+                                <li>Opportunity identification</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🗺️</div>
+                            <h4>Tab 2: Geographic Analysis</h4>
+                            <ul>
+                                <li>Interactive map visualization</li>
+                                <li>Spend by region/location</li>
+                                <li>Supplier geographic distribution</li>
+                                <li>Regional opportunities</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🏷️</div>
+                            <h4>Tab 3: Category Deep Dive</h4>
+                            <ul>
+                                <li>Interactive category hierarchy</li>
+                                <li>Drill-down capabilities</li>
+                                <li>Category spend analysis</li>
+                                <li>Benchmark comparisons</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h4>Tab 4: Supplier Intelligence</h4>
+                            <ul>
+                                <li>Supplier performance metrics</li>
+                                <li>Commonality analysis</li>
+                                <li>Risk assessment indicators</li>
+                                <li>Consolidation opportunities</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💰</div>
+                            <h4>Tab 5: Spend Analytics</h4>
+                            <ul>
+                                <li>Spend band analysis (10-12 bands)</li>
+                                <li>Transaction distribution</li>
+                                <li>Seasonal trend analysis</li>
+                                <li>Payment terms analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Interactive Features</h3>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Date range selectors</li>
+                        <li><input type="checkbox"> Category filters</li>
+                        <li><input type="checkbox"> Supplier search functionality</li>
+                        <li><input type="checkbox"> Export capabilities</li>
+                        <li><input type="checkbox"> Drill-through functionality</li>
+                        <li><input type="checkbox"> Mobile-friendly layouts</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Testing & Validation</h3>
+                        <span class="timeline-duration">1-2 Days</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Data accuracy verification</li>
+                        <li><input type="checkbox"> Calculation validation</li>
+                        <li><input type="checkbox"> User experience testing</li>
+                        <li><input type="checkbox"> Performance benchmarking</li>
+                        <li><input type="checkbox"> Client feedback incorporation</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Delivery Section -->
+            <section id="delivery" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Delivery & Implementation</h1>
+                    <p class="page-subtitle">Dashboard publishing and client handover</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Dashboard Publishing</h3>
+                        <span class="timeline-duration">1-2 Days</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Publish to Power BI Service</li>
+                        <li><input type="checkbox"> Configure access permissions</li>
+                        <li><input type="checkbox"> Set up automated data refresh</li>
+                        <li><input type="checkbox"> Create user documentation</li>
+                        <li><input type="checkbox"> Provide training materials</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Client Handover Package</h3>
+                    </div>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Interactive Power BI dashboard</li>
+                        <li><input type="checkbox"> User guide and training materials</li>
+                        <li><input type="checkbox"> Data dictionary and methodology</li>
+                        <li><input type="checkbox"> Executive summary presentation</li>
+                        <li><input type="checkbox"> Raw categorized data file</li>
+                        <li><input type="checkbox"> Project documentation</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Training & Support</h3>
+                    </div>
+                    <h4>Training Session Agenda:</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Dashboard navigation overview</li>
+                        <li><input type="checkbox"> Key insights walkthrough</li>
+                        <li><input type="checkbox"> Interactive features demonstration</li>
+                        <li><input type="checkbox"> Q&A session</li>
+                        <li><input type="checkbox"> Support contact information provided</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Quality Management Section -->
+            <section id="quality" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Quality Management</h1>
+                    <p class="page-subtitle">Review gates and success metrics</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Quality Review Gates</h3>
+                    </div>
+                    <div class="dashboard-features">
+                        <div class="feature-card">
+                            <h4>Gate 1: Data Quality <span class="status-badge status-green">Complete</span></h4>
+                            <ul>
+                                <li>Data validation passed</li>
+                                <li>Client consultation completed</li>
+                                <li>Cleansing approach approved</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Gate 2: Initial Categorization <span class="status-badge status-yellow">In
+                                    Progress</span></h4>
+                            <ul>
+                                <li>Category assignments validated</li>
+                                <li>Client feedback incorporated</li>
+                                <li>Visualization approved</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Gate 3: Full Categorization <span class="status-badge status-red">Pending</span></h4>
+                            <ul>
+                                <li>90%+ spend categorized</li>
+                                <li>Quality assurance review passed</li>
+                                <li>Taxonomy approved</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Gate 4: Dashboard Complete <span class="status-badge status-red">Pending</span></h4>
+                            <ul>
+                                <li>All features functional</li>
+                                <li>Testing completed</li>
+                                <li>Client acceptance obtained</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Success Metrics</h3>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">>95%</div>
+                            <div class="metric-label">Data Completeness</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">>90%</div>
+                            <div class="metric-label">Categorization Coverage</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">>4.5/5</div>
+                            <div class="metric-label">Client Satisfaction</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">±10%</div>
+                            <div class="metric-label">Timeline Adherence</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Risk Management Section -->
+            <section id="risks" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Risk Management</h1>
+                    <p class="page-subtitle">Common risks and mitigation strategies</p>
+                </div>
+
+                <div class="risk-card">
+                    <h3 class="risk-title">🚨 Data Quality Issues</h3>
+                    <p><strong>Risk:</strong> Incomplete or inaccurate source data</p>
+                    <p><strong>Mitigation:</strong> Robust validation protocols, early client engagement</p>
+                    <p><strong>Escalation:</strong> Analytics Team Lead → Department Manager</p>
+                </div>
+
+                <div class="risk-card">
+                    <h3 class="risk-title">⏰ Timeline Delays</h3>
+                    <p><strong>Risk:</strong> Extended client response times</p>
+                    <p><strong>Mitigation:</strong> Clear communication protocols, alternative workstreams</p>
+                    <p><strong>Escalation:</strong> Business Development → Senior Leadership</p>
+                </div>
+
+                <div class="risk-card">
+                    <h3 class="risk-title">💻 Technical Challenges</h3>
+                    <p><strong>Risk:</strong> Complex data structures or system limitations</p>
+                    <p><strong>Mitigation:</strong> Early technical assessment, fallback options</p>
+                    <p><strong>Escalation:</strong> Senior Analyst → IT Department</p>
+                </div>
+
+                <div class="risk-card">
+                    <h3 class="risk-title">📈 Scope Creep</h3>
+                    <p><strong>Risk:</strong> Additional requirements during execution</p>
+                    <p><strong>Mitigation:</strong> Clear scope documentation, change control process</p>
+                    <p><strong>Escalation:</strong> Project Manager → Senior Leadership</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Escalation Procedures</h3>
+                    </div>
+                    <div class="dashboard-features">
+                        <div class="feature-card">
+                            <h4>Level 1: Analytics Team Lead</h4>
+                            <p>Day-to-day issues, client communication, resource allocation</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Level 2: Department Manager</h4>
+                            <p>Timeline delays, resource conflicts, quality issues</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Level 3: Senior Leadership</h4>
+                            <p>Strategic decisions, major scope changes, client escalations</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appendices Section -->
+            <section id="appendices" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Appendices</h1>
+                    <p class="page-subtitle">Supporting documents and templates</p>
+                </div>
+
+                <div class="appendix-grid">
+                    <div class="appendix-card">
+                        <h3>📋 Appendix A: Data Mapping Template</h3>
+                        <p>Standard template for client data collection with all required fields and formatting
+                            guidelines.</p>
+                        <a href="#" class="download-btn" onclick="downloadTemplate('data-mapping')">
+                            <i class="fas fa-download"></i> Download Template
+                        </a>
+                    </div>
+
+                    <div class="appendix-card">
+                        <h3>🏷️ Appendix B: Industry Taxonomy References</h3>
+                        <p>Comprehensive taxonomy libraries for healthcare, education, manufacturing, and other
+                            verticals.</p>
+                        <a href="#" class="download-btn" onclick="downloadTemplate('taxonomy')">
+                            <i class="fas fa-download"></i> Access Taxonomies
+                        </a>
+                    </div>
+
+                    <div class="appendix-card">
+                        <h3>📊 Appendix C: Power BI Template</h3>
+                        <p>Pre-configured dashboard template with standard visualizations and branding elements.</p>
+                        <a href="#" class="download-btn" onclick="downloadTemplate('powerbi')">
+                            <i class="fas fa-download"></i> Download Template
+                        </a>
+                    </div>
+
+                    <div class="appendix-card">
+                        <h3>✅ Appendix D: Quality Checklists</h3>
+                        <p>Detailed quality assurance procedures and validation checklists for each project phase.</p>
+                        <a href="#" class="download-btn" onclick="downloadTemplate('quality')">
+                            <i class="fas fa-download"></i> Download Checklists
+                        </a>
+                    </div>
+
+                    <div class="appendix-card">
+                        <h3>📧 Appendix E: Communication Templates</h3>
+                        <p>Email templates, status reports, and client communication forms for consistent messaging.</p>
+                        <a href="#" class="download-btn" onclick="downloadTemplate('communication')">
+                            <i class="fas fa-download"></i> Download Templates
+                        </a>
+                    </div>
+
+                    <div class="appendix-card">
+                        <h3>🔧 Appendix F: Technical Resources</h3>
+                        <p>Scripts, code snippets, and technical guides for vendor normalization and data processing.
+                        </p>
+                        <a href="#" class="download-btn" onclick="downloadTemplate('technical')">
+                            <i class="fas fa-download"></i> Access Resources
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Document Management</h3>
+                    </div>
+                    <p>All appendix documents are version-controlled and regularly updated. Click on any category above
+                        to browse available files.</p>
+
+                    <div style="margin-top: 20px;">
+                        <h4>Document Status:</h4>
+                        <ul>
+                            <li>📄 <strong>Data Mapping Template:</strong> <span
+                                    class="status-badge status-green">Updated</span> - v2.1 (Jan 2025)</li>
+                            <li>🏷️ <strong>Taxonomy Files:</strong> <span
+                                    class="status-badge status-green">Current</span> - Last reviewed Dec 2024</li>
+                            <li>📊 <strong>Power BI Template:</strong> <span class="status-badge status-yellow">Review
+                                    Due</span> - v1.8 (Nov 2024)</li>
+                            <li>✅ <strong>Quality Checklists:</strong> <span
+                                    class="status-badge status-green">Updated</span> - v3.0 (Jan 2025)</li>
+                            <li>📧 <strong>Communication Templates:</strong> <span
+                                    class="status-badge status-green">Current</span> - v2.3 (Dec 2024)</li>
+                            <li>🔧 <strong>Technical Resources:</strong> <span
+                                    class="status-badge status-yellow">Updates Available</span> - Multiple versions</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 10px;">
+                        <h4>🔄 Update Notifications:</h4>
+                        <p style="margin: 5px 0;"><strong>Recent Updates:</strong></p>
+                        <ul style="margin: 10px 0;">
+                            <li>✨ Added vendor normalization Python script (Jan 15, 2025)</li>
+                            <li>📝 Updated quality checklists with new validation rules (Jan 10, 2025)</li>
+                            <li>🎨 Refreshed Power BI template with latest Versatex branding (Jan 5, 2025)</li>
+                        </ul>
+                        <p><small><strong>Subscribe to updates:</strong> Contact Defoxx Analytics Team to receive
+                                automatic notifications
+                                when templates are updated.</small></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
+
+        // Enhanced navigation functionality with smooth animations
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Remove active class from all links and sections
+                navLinks.forEach(l => l.classList.remove('active'));
+                contentSections.forEach(s => s.classList.remove('active'));
+
+                // Add active class to clicked link
+                link.classList.add('active');
+
+                // Show corresponding section with animation
+                const sectionId = link.getAttribute('data-section');
+                const targetSection = document.getElementById(sectionId);
+
+                // Small delay for smooth transition
+                setTimeout(() => {
+                    targetSection.classList.add('active');
+                }, 50);
+
+                // Scroll to top of main content with smooth animation
+                document.querySelector('.main-content').scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Enhanced search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        const searchableContent = [
+            { title: 'Data Mapping Template', section: 'data-collection', content: 'template fields supplier spend transaction' },
+            { title: 'Vendor Normalization', section: 'data-cleansing', content: 'fuzzy matching powerbi python normalization' },
+            { title: 'Quality Gates', section: 'quality', content: 'review gates validation approval' },
+            { title: 'Categorization Process', section: 'categorization', content: '5 levels taxonomy classification' },
+            { title: 'Dashboard Development', section: 'dashboard', content: 'power bi visualization charts' },
+            { title: 'Risk Management', section: 'risks', content: 'mitigation escalation procedures' },
+            { title: 'Data Security', section: 'prerequisites', content: 'encryption compliance gdpr' },
+            { title: 'Timeline Requirements', section: 'overview', content: 'duration timeline schedule' },
+            { title: 'Success Metrics', section: 'quality', content: 'kpi performance measurement' },
+            { title: 'Client Communication', section: 'appendices', content: 'templates email status reports' }
+        ];
+
+        let searchTimeout;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.toLowerCase().trim();
+
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            // Debounce search for better performance
+            searchTimeout = setTimeout(() => {
+                const results = searchableContent.filter(item =>
+                    item.title.toLowerCase().includes(query) ||
+                    item.content.toLowerCase().includes(query)
+                );
+
+                displaySearchResults(results);
+            }, 150);
+        });
+
+        function displaySearchResults(results) {
+            if (results.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            searchResults.innerHTML = results.map(result => `
+                <div class="search-result-item" onclick="navigateToSection('${result.section}')">
+                    <strong>${result.title}</strong>
+                    <br>
+                    <small>Section: ${result.section.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</small>
+                </div>
+            `).join('');
+
+            searchResults.style.display = 'block';
+        }
+
+        function navigateToSection(sectionId) {
+            // Hide search results
+            searchResults.style.display = 'none';
+            searchInput.value = '';
+
+            // Navigate to section with enhanced animation
+            navLinks.forEach(l => l.classList.remove('active'));
+            contentSections.forEach(s => s.classList.remove('active'));
+
+            const targetLink = document.querySelector(`[data-section="${sectionId}"]`);
+            const targetSection = document.getElementById(sectionId);
+
+            if (targetLink && targetSection) {
+                targetLink.classList.add('active');
+
+                setTimeout(() => {
+                    targetSection.classList.add('active');
+                    document.querySelector('.main-content').scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 50);
+            }
+        }
+
+        // Enhanced checkbox functionality with visual feedback
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox, index) => {
+            // Load saved state from localStorage
+            const savedState = localStorage.getItem(`checkbox-${index}`);
+            if (savedState === 'true') {
+                checkbox.checked = true;
+                updateCheckboxVisual(checkbox, true);
+            }
+
+            checkbox.addEventListener('change', () => {
+                const isChecked = checkbox.checked;
+
+                // Save state to localStorage
+                localStorage.setItem(`checkbox-${index}`, isChecked);
+
+                // Update visual state with animation
+                updateCheckboxVisual(checkbox, isChecked);
+            });
+        });
+
+        function updateCheckboxVisual(checkbox, isChecked) {
+            const listItem = checkbox.closest('li');
+            if (listItem) {
+                listItem.style.transition = 'all 0.3s ease';
+                listItem.style.opacity = isChecked ? '0.7' : '1';
+                listItem.style.textDecoration = isChecked ? 'line-through' : 'none';
+
+                if (isChecked) {
+                    listItem.style.transform = 'translateX(4px)';
+                } else {
+                    listItem.style.transform = 'translateX(0)';
+                }
+            }
+        }
+
+        // Enhanced download template functionality
+        function downloadTemplate(type) {
+            const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+
+            const templates = {
+                'data-mapping': `${baseUrl}appendices/data-mapping/`,
+                'taxonomy': `${baseUrl}appendices/taxonomies/`,
+                'powerbi': `${baseUrl}appendices/powerbi/`,
+                'quality': `${baseUrl}appendices/quality/`,
+                'communication': `${baseUrl}appendices/communication/`,
+                'technical': `${baseUrl}appendices/technical/`
+            };
+
+            const templateUrl = templates[type];
+            if (templateUrl) {
+                showAppendixFiles(type, templateUrl);
+            }
+        }
+
+        function showAppendixFiles(type, baseUrl) {
+            // Create enhanced modal with improved styling
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0,0,0,0.5); z-index: 1000; display: flex; 
+                justify-content: center; align-items: center;
+                animation: fadeIn 0.3s ease;
+            `;
+
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white; padding: 40px; border-radius: 20px; 
+                max-width: 700px; width: 90%; max-height: 80%; overflow-y: auto;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                animation: scaleIn 0.3s ease;
+            `;
+
+            modalContent.innerHTML = `
+                <h3 style="margin-bottom: 24px; color: var(--primary-color); font-size: 1.75rem; font-weight: 700;">
+                    ${type.charAt(0).toUpperCase() + type.slice(1).replace('-', ' ')} Files
+                </h3>
+                <div id="file-list-${type}"></div>
+                <button onclick="this.closest('.modal').remove()" 
+                        style="margin-top: 24px; padding: 12px 24px; background: var(--primary-color); 
+                               color: white; border: none; border-radius: 12px; cursor: pointer;
+                               font-weight: 600; transition: all 0.3s ease;">
+                    Close
+                </button>
+            `;
+
+            modal.className = 'modal';
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            // Add click outside to close
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            // Load file list for this appendix type
+            loadAppendixFiles(type, baseUrl);
+        }
+
+        function loadAppendixFiles(type, baseUrl) {
+            // Define files for each appendix category
+            const fileStructure = {
+                'data-mapping': [
+                    { name: 'Data_Mapping_Template_v2.xlsx', desc: 'Standard data collection template' },
+                    { name: 'Data_Mapping_Instructions.pdf', desc: 'Detailed instructions for template completion' },
+                    { name: 'Field_Definitions.pdf', desc: 'Comprehensive field definitions and examples' }
+                ],
+                'taxonomy': [
+                    { name: 'Healthcare_Taxonomy.xlsx', desc: 'Healthcare industry category taxonomy' },
+                    { name: 'Education_Taxonomy.xlsx', desc: 'Higher education category taxonomy' },
+                    { name: 'Manufacturing_Taxonomy.xlsx', desc: 'Manufacturing industry taxonomy' },
+                    { name: 'Professional_Services_Taxonomy.xlsx', desc: 'Professional services categories' }
+                ],
+                'powerbi': [
+                    { name: 'Versatex_Dashboard_Template.pbit', desc: 'Power BI dashboard template' },
+                    { name: 'PowerBI_Setup_Guide.pdf', desc: 'Step-by-step setup instructions' },
+                    { name: 'Dashboard_User_Guide.pdf', desc: 'End-user navigation guide' }
+                ],
+                'quality': [
+                    { name: 'Quality_Checklist_Phase1.pdf', desc: 'Data collection quality checklist' },
+                    { name: 'Quality_Checklist_Phase2.pdf', desc: 'Categorization quality checklist' },
+                    { name: 'Quality_Checklist_Dashboard.pdf', desc: 'Dashboard quality validation' },
+                    { name: 'QA_Review_Template.xlsx', desc: 'Quality assurance review template' }
+                ],
+                'communication': [
+                    { name: 'Client_Email_Templates.docx', desc: 'Standard client communication templates' },
+                    { name: 'Status_Report_Template.xlsx', desc: 'Project status reporting template' },
+                    { name: 'Escalation_Procedures.pdf', desc: 'Issue escalation guidelines' }
+                ],
+                'technical': [
+                    { name: 'Vendor_Normalization_Script.py', desc: 'Python script for vendor name normalization' },
+                    { name: 'Data_Validation_Script.R', desc: 'R script for data quality validation' },
+                    { name: 'PowerBI_Automation.txt', desc: 'PowerBI automation scripts and DAX formulas' },
+                    { name: 'Technical_Setup_Guide.pdf', desc: 'Technical environment setup guide' }
+                ]
+            };
+
+            const files = fileStructure[type] || [];
+            const fileListContainer = document.getElementById(`file-list-${type}`);
+
+            if (files.length === 0) {
+                fileListContainer.innerHTML = '<p>No files available for this category.</p>';
+                return;
+            }
+
+            fileListContainer.innerHTML = files.map(file => `
+                <div style="border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 16px;
+                           transition: all 0.3s ease; cursor: pointer;"
+                     onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='var(--shadow-lg)';"
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)';">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <strong style="color: var(--text-primary); font-size: 1.1rem;">${file.name}</strong>
+                            <br>
+                            <small style="color: var(--text-secondary); margin-top: 4px; display: block;">${file.desc}</small>
+                        </div>
+                        <a href="${baseUrl}${file.name}" 
+                           download="${file.name}"
+                           style="background: var(--success-color); color: white; padding: 10px 18px; 
+                                  text-decoration: none; border-radius: 8px; font-size: 0.95rem;
+                                  font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
+                                  transition: all 0.3s ease; white-space: nowrap;"
+                           onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='var(--shadow-md)';"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-box')) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                // Close modals
+                document.querySelectorAll('.modal').forEach(modal => modal.remove());
+                // Close search results
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Add loading animation for dynamic content
+        function addLoadingState(element) {
+            element.classList.add('loading');
+            setTimeout(() => {
+                element.classList.remove('loading');
+            }, 1000);
+        }
+
+        // Enhanced intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.style.animationFillMode = 'forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe timeline items for scroll animations
+        document.querySelectorAll('.timeline-item, .feature-card, .metric-card').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Add performance optimizations
+        const throttle = (func, wait) => {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        };
+
+        // Throttled resize handler
+        window.addEventListener('resize', throttle(() => {
+            // Recalculate layouts if needed
+            console.log('Window resized');
+        }, 250));
+
+        // Preload critical images
+        function preloadImages() {
+            const images = ['vtx_logo_black.png', 'vtx_logo_white.png'];
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            preloadImages();
+
+            // Add subtle entrance animations
+            setTimeout(() => {
+                document.querySelectorAll('.timeline-item').forEach((item, index) => {
+                    item.style.animationDelay = `${index * 0.1}s`;
+                    item.style.animation = 'fadeInUp 0.6s ease forwards';
+                });
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>
