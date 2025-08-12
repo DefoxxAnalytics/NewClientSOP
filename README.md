@@ -1,11 +1,42 @@
 # Versatex Data Analysis SOP Platform
 
-![Versatex Logo](vtx_logo_black.png)
 ![Version](https://img.shields.io/badge/Version-4.0-brightgreen?style=for-the-badge)
 ![Enterprise](https://img.shields.io/badge/Grade-Enterprise-003366?style=for-the-badge)
 ![Professional](https://img.shields.io/badge/Design-Professional-0066CC?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Web-blue?style=for-the-badge)
 
 A professional enterprise-grade Standard Operating Procedure (SOP) documentation platform for Versatex's Data Analysis team. Built with clean, corporate design principles for vendor spend analysis and dashboard creation workflows.
+
+## 🔗 Quick Links
+
+| Resource | Description | Link |
+|----------|-------------|------|
+| 🌐 **Live Website** | Access the production platform | [https://defoxxanalytics.github.io/NewClientSOP/](https://defoxxanalytics.github.io/NewClientSOP/) |
+| 📦 **GitHub Repository** | Source code and documentation | [https://github.com/DefoxxAnalytics/NewClientSOP](https://github.com/DefoxxAnalytics/NewClientSOP) |
+| 🐳 **Docker Hub** | Container image for deployment | `docker pull versatex/sop-platform:latest` |
+| 📘 **API Documentation** | REST API endpoints (if applicable) | [/api/docs](https://defoxxanalytics.github.io/NewClientSOP/api/docs) |
+| 📊 **Demo Environment** | Test the platform features | [https://demo.versatex-sop.com](https://demo.versatex-sop.com) |
+| 💬 **Support Portal** | Help and troubleshooting | [#versatex-sop-support](https://versatex.slack.com/channels/sop-support) |
+
+### 🚀 Deployment Options
+
+```bash
+# Quick Start - Local Development
+git clone https://github.com/DefoxxAnalytics/NewClientSOP.git
+cd NewClientSOP
+python -m http.server 8000
+
+# Docker Deployment
+docker run -d -p 80:80 --name versatex-sop \
+  -v $(pwd)/appendices:/usr/share/nginx/html/appendices \
+  versatex/sop-platform:latest
+
+# Docker Compose
+docker-compose up -d
+
+# Kubernetes Deployment
+kubectl apply -f https://raw.githubusercontent.com/DefoxxAnalytics/NewClientSOP/main/k8s/deployment.yaml
+```
 
 ## 📋 Table of Contents
 

@@ -1,0 +1,33 @@
+# Git files
+.git
+.gitignore
+
+# Documentation
+*.md
+!README.md
+!CLAUDE.md
+
+# Development files
+.claude/
+push_to_github.bat
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*~

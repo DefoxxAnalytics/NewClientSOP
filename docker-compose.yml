@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  versatex-sop:
+    build: .
+    image: versatex/sop-platform:latest
+    container_name: versatex-sop
+    ports:
+      - "8080:80"
+    volumes:
+      # Mount appendices folder for easy updates
+      - ./appendices:/usr/share/nginx/html/appendices:ro
+      # Optional: Mount custom nginx config
+      # - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    restart: unless-stopped
+    networks:
+      - sop-network
+    labels:
+      - "com.versatex.description=Versatex SOP Platform"
+      - "com.versatex.version=4.0"
+      - "com.versatex.maintainer=Defoxx Analytics Team"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+networks:
+  sop-network:
+    driver: bridge
+    name: versatex-sop-network
